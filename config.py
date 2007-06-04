@@ -24,7 +24,7 @@ CHANNEL = "#tty_devel"
 SERVICIOS = "acerca de, ayuda, quit, quote [add], saluda, url [number]"
 
 # PASSWORD para desconectar el bot.
-QUITPWD = "tarariro" # <- pass para chaparlo
+QUITPWD = "tarariro"
 
 # FICHEROS de url, quotes y demas. Ambos son ficheros de texto plano.
 URL_FILE = "/home/jors/.pyircbot2/urls.txt"
