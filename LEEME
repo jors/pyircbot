@@ -1,0 +1,30 @@
+
+-----
+Intro
+-----
+
+Inicialmente, pyircbot constaba de un solo fichero (pyircbot) donde se hallaba
+todo lo necesario para su ejecucion. Desde la segunda revision de subversion,
+esto ya no es mas asi. Asi pues, ahora existen 3 ficheros (y esta sujeto a
+cambio):
+
+ - pyircbot.py: main.
+ - functions.py: funciones.
+ - config.py: opciones de configuracion.
+
+----------------
+Quiero trastear!
+----------------
+
+Para ello basta con que te bajes una copia de trbajo desde subversion. Puedes
+hacer esto ejecutando lo siguiente:
+
+  svn co https://pyircbot.svn.sourceforge.net/svnroot/pyircbot pyircbot
+
+-----------------------------
+Donaciones o pago en especies
+-----------------------------
+
+Se aceptan donaciones -casi- de cualquier tipo. En especial, si perteneces al 
+sexo femenino y consideras que estas de buen ver 0:D
+
