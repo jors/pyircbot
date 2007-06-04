@@ -10,6 +10,9 @@ Public License.
 ----------
 Changelog:
 ----------
+04 Jun'07 - División del proyecto en 3 ficheros: main, funciones y configuraciones.
+          - Adición de otro modo de llamada al bot; puede ser bot: accion y bot accion.
+          - Sustitución de hardcoded strings por otros dinámicos.
 
 21 Mar'07 - Bug#3. sleep() para controlar flood urls. No, no recuerdo los 2 anteriores.
 
@@ -24,12 +27,13 @@ import socket,os,string,sys,linecache,random,time
 import functions,config
 
 ### MAIN ###
+############
 
 # Create socket & connect to IRC server.
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 if(config.DEBUG):
 	print 'Connecting to server...'
-s.connect(('libres.irc-hispano.org', 6667))
+s.connect((config.SERVER_NAME, int(config.SERVER_PORT)))
 
 # Mandamos datos iniciales...
 if(config.DEBUG):
@@ -110,11 +114,10 @@ while 1:
          MSG = 'pyircbot2 - Bot pythoniano de IRC, Feb\'07, by qat.'
          s.send("PRIVMSG %s :%s\r\n" % (config.CHANNEL,MSG))
 
+      # quit #
+      elif((line.find(config.NICK+ ': quit') != -1) or (line.find(config.NICK+ ' quit') != -1)):
+         functions.salir(s, line)
+
       # url catcher #
       if((line.find('http:') != -1) or (line.find('ftp:') != -1)):
          functions.espia_url(line)
-
-      # quit #
-      if((line.find(config.NICK+ ': quit') != -1) or (line.find(config.NICK+ ' quit') != -1)):
-         functions.salir(s, line)
-

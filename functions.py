@@ -5,6 +5,7 @@ import socket,os,string,sys,linecache,random,time
 import config
 
 ### METAFUNCIONES ###
+#####################
 def isInt(str):
    """Is the given string an integer?"""
    try:int(str)
@@ -12,6 +13,7 @@ def isInt(str):
    else:return 1
 
 ### FUNCIONES ###
+#################
 def espia_url(line):
    if(line.find("PRIVMSG "+config.CHANNEL) != -1):
       list = line.split(' ')
