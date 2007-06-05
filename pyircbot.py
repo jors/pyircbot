@@ -10,6 +10,8 @@ Public License.
 ----------
 Changelog:
 ----------
+06 Jun'07 - Adición funcionalidad de logging para aplicar stats.
+
 04 Jun'07 - División del proyecto en 3 ficheros: main, funciones y configuraciones.
           - Adición de otro modo de llamada al bot; puede ser bot: accion y bot accion.
           - Sustitución de hardcoded strings por otros dinámicos.
@@ -86,38 +88,49 @@ while 1:
             s.send("PONG %s\r\n" % line_list[1])
     
       # ayuda #
-      elif((line.find(config.NICK+': ayuda') != -1) or (line.find(config.NICK+' ayuda') != -1)):
-         s.send("PRIVMSG %s :Uso: %s: servicio\r\n" % (config.CHANNEL,config.NICK))
-         s.send("PRIVMSG %s :Lista de servicios: %s\r\n" % (config.CHANNEL,config.SERVICIOS))
+      if(config.M_AYUDA):
+         if((line.find(config.NICK+': ayuda') != -1) or (line.find(config.NICK+' ayuda') != -1)):
+            s.send("PRIVMSG %s :Uso: %s: servicio\r\n" % (config.CHANNEL,config.NICK))
+            s.send("PRIVMSG %s :Lista de servicios: %s\r\n" % (config.CHANNEL,config.SERVICIOS))
 
       # saluda #
-      elif((line.find(config.NICK+': saluda') != -1) or (line.find(config.NICK+' saluda') != -1)):
-         elems = len(line_list)
-         if(line_list[elems-1] == 'saluda'):
-	         s.send("PRIVMSG %s :Hola!\r\n" % config.CHANNEL)
-         else:
-            s.send("PRIVMSG %s :Hola %s\r\n" % (config.CHANNEL,line_list[elems-1]))
+      if(config.M_SALUDA):
+         if((line.find(config.NICK+': saluda') != -1) or (line.find(config.NICK+' saluda') != -1)):
+            elems = len(line_list)
+            if(line_list[elems-1] == 'saluda'):
+	           s.send("PRIVMSG %s :Hola!\r\n" % config.CHANNEL)
+            else:
+               s.send("PRIVMSG %s :Hola %s\r\n" % (config.CHANNEL,line_list[elems-1]))
 
       # quote: leer/añadir #
-      elif((line.find(config.NICK+': quote') != -1) or (line.find(config.NICK+' quote') != -1)):
-         if(line.find(config.NICK+': quote add') != -1):
-	         functions.anyade_quote(s, line)
-         else:
-            functions.lee_quote(s)
+      if(config.M_QUOTE):
+         if((line.find(config.NICK+': quote') != -1) or (line.find(config.NICK+' quote') != -1)):
+            if((line.find(config.NICK+': quote add') != -1) or (line.find(config.NICK+': quote add') != -1)):
+	           functions.anyade_quote(s, line)
+            else:
+               functions.lee_quote(s)
 
       # url #
-      elif((line.find(config.NICK+': url') != -1) or (line.find(config.NICK+' url') != -1)):
-         functions.lee_urls(s, line)
+      if(config.M_URL):
+         if((line.find(config.NICK+': url') != -1) or (line.find(config.NICK+' url') != -1)):
+            functions.lee_urls(s, line)
 
       # acerca de #
-      elif((line.find(config.NICK+': acerca de') != -1) or (line.find(config.NICK+' acerca de') != -1)):
-         MSG = 'pyircbot2 - Bot pythoniano de IRC, Feb\'07, by qat.'
-         s.send("PRIVMSG %s :%s\r\n" % (config.CHANNEL,MSG))
+      if(config.M_ACERCADE):
+         if((line.find(config.NICK+': acerca de') != -1) or (line.find(config.NICK+' acerca de') != -1)):
+            MSG = 'pyircbot2 - Bot pythoniano de IRC, Feb\'07, by qat.'
+            s.send("PRIVMSG %s :%s\r\n" % (config.CHANNEL,MSG))
 
       # quit #
-      elif((line.find(config.NICK+ ': quit') != -1) or (line.find(config.NICK+ ' quit') != -1)):
-         functions.salir(s, line)
+      if(config.M_QUIT):
+         if((line.find(config.NICK+ ': quit') != -1) or (line.find(config.NICK+ ' quit') != -1)):
+            functions.salir(s, line)
 
       # url catcher #
-      if((line.find('http:') != -1) or (line.find('ftp:') != -1)):
-         functions.espia_url(line)
+      if(config.M_URLCATCHER):
+         if((line.find('http:') != -1) or (line.find('ftp:') != -1)):
+            functions.espia_url(line)
+
+      # stats #
+      if(config.M_STATS):
+         functions.registra_linea(line)

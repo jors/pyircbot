@@ -18,14 +18,24 @@ SERVER_PORT = "6667"
 USER = "jirili localhost libres.irc-hispano.org :jirili"
 
 # CANAL al que se asocia el bot.
-CHANNEL = "#tty_devel"
+CHANNEL = "#tty"
 
 # SERVICIOS ofrecidos por el bot.
 SERVICIOS = "acerca de, ayuda, quit, quote [add], saluda, url [number]"
 
 # PASSWORD para desconectar el bot.
-QUITPWD = "tarariro"
+QUITPWD = "oh"
 
 # FICHEROS de url, quotes y demas. Ambos son ficheros de texto plano.
-URL_FILE = "/home/jors/.pyircbot2/urls.txt"
+URLS_FILE = "/home/jors/.pyircbot2/urls.txt"
 QUOTES_FILE = "/home/jors/.pyircbot2/quotes.txt"
+
+# MODULOS a activar/desactivar.
+M_AYUDA = 1
+M_SALUDA = 1
+M_QUOTE = 1
+M_URL = 1
+M_ACERCADE = 1
+M_QUIT = 1
+M_URLCATCHER = 1
+M_STATS = 1

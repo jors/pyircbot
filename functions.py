@@ -14,12 +14,21 @@ def isInt(str):
 
 ### FUNCIONES ###
 #################
+
+def registra_linea(line):
+   if(line.find("PRIVMSG "+config.CHANNEL) != -1):
+      line = line.replace(" PRIVMSG ", "")
+      line = line.replace(config.CHANNEL, "")
+      fp = open("/home/jors/.pyircbot2/"+config.CHANNEL+".log", 'a')
+      fp.write(time.strftime("%Y-%m-%d %H-%M-%S")+line+'\n')
+      fp.close()
+
 def espia_url(line):
    if(line.find("PRIVMSG "+config.CHANNEL) != -1):
       list = line.split(' ')
       for i in list:
-         if((i.find('http:') != -1) or (i.find('ftp:')) != -1):
-	         fp = open('/home/jors/.pyircbot2/urls.txt', 'a')
+         if((i.find('http://') != -1) or (i.find('ftp://')) != -1):
+	         fp = open(config.URLS_FILE, 'a')
 	         fp.write(i+'\n')
 	         fp.close()
 	         break
@@ -27,7 +36,7 @@ def espia_url(line):
 def lee_urls(s, line):
    # Lee y muestra las urls almacenadas.
    list = line.split('url')
-   fp = open('/home/jors/.pyircbot2/urls.txt', 'r')
+   fp = open(config.URLS_FILE, 'r')
    lines = fp.readlines() # lines es una list de urls
    fp.close()
    if(list[1] == ''):
@@ -51,7 +60,7 @@ def lee_urls(s, line):
 def anyade_quote(s, line):
    list = line.split('quote add')
    if(list[1] != ''):
-      fp = open('/home/jors/.pyircbot2/quotes.txt', 'a')
+      fp = open(config.QUOTES_FILE, 'a')
       fp.write(list[1]+'\n')
       fp.close()
       s.send("PRIVMSG %s :Quote añadido! \r\n" % (config.CHANNEL))
@@ -60,7 +69,7 @@ def anyade_quote(s, line):
 
 def lee_quote(s):
    # Leer una random quote.
-   fp = open('/home/jors/.pyircbot2/quotes.txt', 'r')
+   fp = open(config.QUOTES_FILE, 'r')
    lines = fp.readlines() # lines es una list de quotes
    fp.close()
    elems = len(lines)
