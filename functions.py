@@ -39,11 +39,12 @@ def lee_urls(s, line):
    fp = open(config.URLS_FILE, 'r')
    lines = fp.readlines() # lines es una list de urls
    fp.close()
-   if(list[1] == ''):
-      for i in lines:
-         s.send("PRIVMSG %s :%s\r\n" % (config.CHANNEL,i))
-         time.sleep(1) # Bug#3.
-   elif(isInt(list[1])):
+# Funcion de mostrado de TODAS las urls deprecated. Era una locura de flood!
+#   if(list[1] == ''):
+#      for i in lines:
+#         s.send("PRIVMSG %s :%s\r\n" % (config.CHANNEL,i))
+#         time.sleep(1) # Bug#3.
+   if(isInt(list[1])):
       req_urls = int(list[1]) # requested urls
       avail_urls = int(len(lines)) # available urls
       if(req_urls <= avail_urls):
@@ -51,11 +52,17 @@ def lee_urls(s, line):
          lines = lines[url_start:avail_urls] # seleccionamos un rango de elementos, elem inicial:final
          for i in lines:
 	        s.send("PRIVMSG %s :%s\r\n" % (config.CHANNEL,i))
-	        time.sleep(1) # Bug#3.
+	        time.sleep(2) # Bug#3.
       else:
          s.send("PRIVMSG %s :Petición fuera de rango! Sólo hay %s urls!\r\n" % (config.CHANNEL,len(lines)))
    else:
-      s.send("PRIVMSG %s :El parámetro no es un entero!\r\n" % (config.CHANNEL))
+      # Busqueda de texto.
+      for i in lines:
+         if(i.find(list[1].strip()) != -1):
+            s.send("PRIVMSG %s :%s\r\n" % (config.CHANNEL,i))
+            time.sleep(2) # Bug#3.
+#   else:
+#      s.send("PRIVMSG %s :El parámetro no es valido!\r\n" % (config.CHANNEL))
 
 def anyade_quote(s, line):
    list = line.split('quote add')

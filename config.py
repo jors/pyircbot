@@ -5,7 +5,7 @@
 #################
 
 # DGBUG info; booleano para activarlo/desactivarlo.
-DEBUG = 0
+DEBUG = 1
 
 # NICKNAME del bot.
 NICK = "jirili"
@@ -21,10 +21,10 @@ USER = "jirili localhost libres.irc-hispano.org :jirili"
 CHANNEL = "#tty"
 
 # SERVICIOS ofrecidos por el bot.
-SERVICIOS = "acerca de, ayuda, quit, quote [add], saluda, url [number]"
+SERVICIOS = "acerca de, ayuda, quit, quote [add], saluda, url [number]|[string]"
 
 # PASSWORD para desconectar el bot.
-QUITPWD = "oh"
+QUITPWD = "tarantino"
 
 # FICHEROS de url, quotes y demas. Ambos son ficheros de texto plano.
 URLS_FILE = "/home/jors/.pyircbot2/urls.txt"

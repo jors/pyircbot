@@ -10,7 +10,11 @@ Public License.
 ----------
 Changelog:
 ----------
-06 Jun'07 - Adición funcionalidad de logging para aplicar stats.
+
+06 Jun'07 - Modificación funcionalidad de mostrar urls. Sin argumentos no se muestran todas,
+            y es posible pasarle un string en lugar de un nº para hacer busquedas de url.
+
+05 Jun'07 - Adición funcionalidad de logging para aplicar stats (stats TBD yet).
 
 04 Jun'07 - División del proyecto en 3 ficheros: main, funciones y configuraciones.
           - Adición de otro modo de llamada al bot; puede ser bot: accion y bot accion.
