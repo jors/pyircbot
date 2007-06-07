@@ -15,6 +15,25 @@ def isInt(str):
 ### FUNCIONES ###
 #################
 
+def ayuda(s, line):
+      list = line.split('ayuda')
+
+      if(list[1].strip() == ''):
+         s.send("PRIVMSG %s :Uso: %s: servicio\r\n" % (config.CHANNEL,config.NICK))
+         s.send("PRIVMSG %s :Lista de servicios: %s\r\n" % (config.CHANNEL,config.SERVICIOS))
+      elif(list[1].strip() == 'acerca de'):
+         s.send("PRIVMSG %s :Muestra una breve descripción del bot.\r\n" % (config.CHANNEL))
+      elif(list[1].strip() == 'quit'):
+         s.send("PRIVMSG %s :Desconecta el bot; requiere ciertos privilegios.\r\n" % (config.CHANNEL))
+      elif(list[1].strip() == 'quote'):
+         s.send("PRIVMSG %s :Muestra un quote aleatorio. Con el parámetro add seguido de una frase, añade un quote.\r\n" % (config.CHANNEL))
+      elif(list[1].strip() == 'saluda'):
+         s.send("PRIVMSG %s :Muestra un saludo. Saluda a un destino concreto con un parámetro final.\r\n" % (config.CHANNEL))
+      elif(list[1].strip() == 'url'):
+         s.send("PRIVMSG %s :Muestra urls. Necesita un parámetro. Si este es un número N, muestra las N últimas urls. Si es una cadena, hace una búsqueda de las urls que la contengan para mostrarlas.\r\n" % (config.CHANNEL))
+      else:
+         s.send("PRIVMSG %s :Opción no reconocida.\r\n" % (config.CHANNEL))
+
 def registra_linea(line):
    if(line.find("PRIVMSG "+config.CHANNEL) != -1):
       line = line.replace(" PRIVMSG ", "")

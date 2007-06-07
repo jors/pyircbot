@@ -21,7 +21,7 @@ USER = "jirili localhost libres.irc-hispano.org :jirili"
 CHANNEL = "#tty"
 
 # SERVICIOS ofrecidos por el bot.
-SERVICIOS = "acerca de, ayuda, quit, quote [add], saluda, url [number]|[string]"
+SERVICIOS = "acerca de, ayuda [comando], quit, quote [add], saluda, url [numero]|[palabra]"
 
 # PASSWORD para desconectar el bot.
 QUITPWD = "tarantino"

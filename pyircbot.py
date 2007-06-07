@@ -10,6 +10,7 @@ Public License.
 ----------
 Changelog:
 ----------
+07 Jun'07 - Modificación funcionalidad de mostrar ayuda: función extendida.
 
 06 Jun'07 - Modificación funcionalidad de mostrar urls. Sin argumentos no se muestran todas,
             y es posible pasarle un string en lugar de un nº para hacer busquedas de url.
@@ -94,8 +95,7 @@ while 1:
       # ayuda #
       if(config.M_AYUDA):
          if((line.find(config.NICK+': ayuda') != -1) or (line.find(config.NICK+' ayuda') != -1)):
-            s.send("PRIVMSG %s :Uso: %s: servicio\r\n" % (config.CHANNEL,config.NICK))
-            s.send("PRIVMSG %s :Lista de servicios: %s\r\n" % (config.CHANNEL,config.SERVICIOS))
+            functions.ayuda(s, line)
 
       # saluda #
       if(config.M_SALUDA):
