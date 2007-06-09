@@ -15,31 +15,59 @@ def isInt(str):
 ### FUNCIONES ###
 #################
 
-def ayuda(s, line):
-      list = line.split('ayuda')
+def crea_stats(s):
+   fp = open(config.LOG_FILE, 'r')
+   lines = fp.readlines() # lines es una list de urls
+   fp.close()
 
-      if(list[1].strip() == ''):
-         s.send("PRIVMSG %s :Uso: %s: servicio\r\n" % (config.CHANNEL,config.NICK))
-         s.send("PRIVMSG %s :Lista de servicios: %s\r\n" % (config.CHANNEL,config.SERVICIOS))
-      elif(list[1].strip() == 'acerca de'):
-         s.send("PRIVMSG %s :Muestra una breve descripción del bot.\r\n" % (config.CHANNEL))
-      elif(list[1].strip() == 'quit'):
-         s.send("PRIVMSG %s :Desconecta el bot; requiere ciertos privilegios.\r\n" % (config.CHANNEL))
-      elif(list[1].strip() == 'quote'):
-         s.send("PRIVMSG %s :Muestra un quote aleatorio. Con el parámetro add seguido de una frase, añade un quote.\r\n" % (config.CHANNEL))
-      elif(list[1].strip() == 'saluda'):
-         s.send("PRIVMSG %s :Muestra un saludo. Saluda a un destino concreto con un parámetro final.\r\n" % (config.CHANNEL))
-      elif(list[1].strip() == 'url'):
-         s.send("PRIVMSG %s :Muestra urls. Necesita un parámetro. Si este es un número N, muestra las N últimas urls. Si es una cadena, hace una búsqueda de las urls que la contengan para mostrarlas.\r\n" % (config.CHANNEL))
+   nicks = []
+   apariciones = []
+
+   for i in lines:
+      split = i.split(':')
+      split2 = split[2].split('!')
+
+      if(split2[0] in nicks):
+         pos = nicks.index(split2[0])
+         apariciones[pos] = apariciones[pos] + 1
+         #print split2[0]+" ya esta en la lista! Tiene "+str(apariciones[pos])+" entradas."
       else:
-         s.send("PRIVMSG %s :Opción no reconocida.\r\n" % (config.CHANNEL))
+         #print "Agregando "+split2[0]+" al array general."
+         nicks.append(split2[0])
+         apariciones.append(1)
+
+   j = 0
+   #s.send("PRIVMSG %s :%s\r\n" % (config.CHANNEL,"Loros del canal:"))
+   for i in nicks:
+      s.send("PRIVMSG %s :%s - %s lineas.\r\n" % (config.CHANNEL,i,apariciones[j]))
+      time.sleep(1)
+      j = j + 1
+
+def ayuda(s, line):
+   list = line.split('ayuda')
+
+   if(list[1].strip() == ''):
+      s.send("PRIVMSG %s :Uso: %s: servicio\r\n" % (config.CHANNEL,config.NICK))
+      s.send("PRIVMSG %s :Lista de servicios: %s\r\n" % (config.CHANNEL,config.SERVICIOS))
+   elif(list[1].strip() == 'acerca de'):
+      s.send("PRIVMSG %s :%s\r\n" % (config.CHANNEL,config.SERVICIO_ACERCADE))
+   elif(list[1].strip() == 'quit'):
+      s.send("PRIVMSG %s :%s\r\n" % (config.CHANNEL,config.SERVICIO_QUIT))
+   elif(list[1].strip() == 'quote'):
+      s.send("PRIVMSG %s :%s\r\n" % (config.CHANNEL,config.SERVICIO_QUOTE))
+   elif(list[1].strip() == 'saluda'):
+      s.send("PRIVMSG %s :%s\r\n" % (config.CHANNEL,config.SERVICIO_SALUDA))
+   elif(list[1].strip() == 'url'):
+      s.send("PRIVMSG %s :%s\r\n" % (config.CHANNEL,config.SERVICIO_URL))
+   else:
+      s.send("PRIVMSG %s :Opción no reconocida.\r\n" % (config.CHANNEL))
 
 def registra_linea(line):
    if(line.find("PRIVMSG "+config.CHANNEL) != -1):
       line = line.replace(" PRIVMSG ", "")
       line = line.replace(config.CHANNEL, "")
-      fp = open("/home/jors/.pyircbot2/"+config.CHANNEL+".log", 'a')
-      fp.write(time.strftime("%Y-%m-%d %H-%M-%S")+line+'\n')
+      fp = open(config.LOG_FILE, 'a')
+      fp.write(time.strftime("%Y-%m-%d:%H-%M-%S")+line+'\n')
       fp.close()
 
 def espia_url(line):
@@ -58,11 +86,7 @@ def lee_urls(s, line):
    fp = open(config.URLS_FILE, 'r')
    lines = fp.readlines() # lines es una list de urls
    fp.close()
-# Funcion de mostrado de TODAS las urls deprecated. Era una locura de flood!
-#   if(list[1] == ''):
-#      for i in lines:
-#         s.send("PRIVMSG %s :%s\r\n" % (config.CHANNEL,i))
-#         time.sleep(1) # Bug#3.
+
    if(isInt(list[1])):
       req_urls = int(list[1]) # requested urls
       avail_urls = int(len(lines)) # available urls
@@ -80,8 +104,6 @@ def lee_urls(s, line):
          if(i.find(list[1].strip()) != -1):
             s.send("PRIVMSG %s :%s\r\n" % (config.CHANNEL,i))
             time.sleep(2) # Bug#3.
-#   else:
-#      s.send("PRIVMSG %s :El parámetro no es valido!\r\n" % (config.CHANNEL))
 
 def anyade_quote(s, line):
    list = line.split('quote add')

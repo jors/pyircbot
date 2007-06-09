@@ -135,6 +135,11 @@ while 1:
          if((line.find('http:') != -1) or (line.find('ftp:') != -1)):
             functions.espia_url(line)
 
+      # logging #
+      if(config.M_LOGGING):
+         functions.registra_linea(line)
+
       # stats #
       if(config.M_STATS):
-         functions.registra_linea(line)
+         if((line.find(config.NICK+ ': stats') != -1) or (line.find(config.NICK+ ' stats') != -1)):
+            functions.crea_stats(s)

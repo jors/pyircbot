@@ -21,14 +21,22 @@ USER = "jirili localhost libres.irc-hispano.org :jirili"
 CHANNEL = "#tty"
 
 # SERVICIOS ofrecidos por el bot.
-SERVICIOS = "acerca de, ayuda [comando], quit, quote [add], saluda, url [numero]|[palabra]"
+SERVICIOS = "acerca de, ayuda [comando], quit, quote [add], saluda, stats, url [numero]|[palabra]"
+SERVICIO_ACERCADE = "Muestra una breve descripcion del bot."
+SERVICIO_QUIT = "Desconecta el bot; requiere ciertos privilegios."
+SERVICIO_QUOTE = "Muestra un quote aleatorio. Con el parametro add seguido de una frase, añade un quote."
+SERVICIO_SALUDA = "Muestra un saludo. Saluda a un destino concreto con un parametro final."
+SERVICIO_SALUDA = "Muestra una pequeña estadistica del canal."
+SERVICIO_URL = "Muestra urls. Necesita un parametro. Si este es un número N, muestra las N ultimas urls. Si es una cadena, hace una busqueda de las urls que la contengan para mostrarlas."
 
 # PASSWORD para desconectar el bot.
 QUITPWD = "tarantino"
 
 # FICHEROS de url, quotes y demas. Ambos son ficheros de texto plano.
-URLS_FILE = "/home/jors/.pyircbot2/urls.txt"
-QUOTES_FILE = "/home/jors/.pyircbot2/quotes.txt"
+BASE = "/home/jors/.pyircbot2/"
+URLS_FILE = BASE+"/urls.txt"
+QUOTES_FILE = BASE+"/quotes.txt"
+LOG_FILE = BASE+CHANNEL+".log"
 
 # MODULOS a activar/desactivar.
 M_AYUDA = 1
@@ -38,4 +46,5 @@ M_URL = 1
 M_ACERCADE = 1
 M_QUIT = 1
 M_URLCATCHER = 1
+M_LOGGING = 1
 M_STATS = 1
