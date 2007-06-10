@@ -15,7 +15,7 @@ SERVER_NAME = "libres.irc-hispano.org"
 SERVER_PORT = "6667"
 
 # ident del bot.
-USER = "jirili localhost libres.irc-hispano.org :jirili"
+USER = NICK+" localhost libres.irc-hispano.org :"+NICK
 
 # CANAL al que se asocia el bot.
 CHANNEL = "#tty"

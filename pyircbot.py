@@ -10,6 +10,9 @@ Public License.
 ----------
 Changelog:
 ----------
+
+09 Jun'07 - Adición funcionalidad basica de stats.
+
 07 Jun'07 - Modificación funcionalidad de mostrar ayuda: función extendida.
 
 06 Jun'07 - Modificación funcionalidad de mostrar urls. Sin argumentos no se muestran todas,
