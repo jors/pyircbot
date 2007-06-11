@@ -11,23 +11,26 @@ Public License.
 Changelog:
 ----------
 
-09 Jun'07 - Adición funcionalidad basica de stats.
+11 Jun'07 - Adicion filtros y protecciones basicas para evitar que la funcion URL
+            pueda ser usada para generar flood.
 
-07 Jun'07 - Modificación funcionalidad de mostrar ayuda: función extendida.
+09 Jun'07 - Adicion funcionalidad basica de stats.
 
-06 Jun'07 - Modificación funcionalidad de mostrar urls. Sin argumentos no se muestran todas,
+07 Jun'07 - Modificacion funcionalidad de mostrar ayuda: funcion extendida.
+
+06 Jun'07 - Modificacion funcionalidad de mostrar urls. Sin argumentos no se muestran todas,
             y es posible pasarle un string en lugar de un nº para hacer busquedas de url.
 
-05 Jun'07 - Adición funcionalidad de logging para aplicar stats (stats TBD yet).
+05 Jun'07 - Adicion funcionalidad de logging para aplicar stats (stats TBD yet).
 
-04 Jun'07 - División del proyecto en 3 ficheros: main, funciones y configuraciones.
-          - Adición de otro modo de llamada al bot; puede ser bot: accion y bot accion.
-          - Sustitución de hardcoded strings por otros dinámicos.
+04 Jun'07 - Division del proyecto en 3 ficheros: main, funciones y configuraciones.
+          - Adicion de otro modo de llamada al bot; puede ser bot: accion y bot accion.
+          - Sustitucion de hardcoded strings por otros dinamicos.
 
 21 Mar'07 - Bug#3. sleep() para controlar flood urls. No, no recuerdo los 2 anteriores.
 
-27 Feb'07 - Adición funcionalidad grabar quotes.
-          - Adición funcionalidad mostrar X últimas urls.
+27 Feb'07 - Adicion funcionalidad grabar quotes.
+          - Adicion funcionalidad mostrar X ultimas urls.
 
 Mediados de Feb'07 - Script principal.
 

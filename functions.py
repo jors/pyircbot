@@ -60,7 +60,7 @@ def ayuda(s, line):
    elif(list[1].strip() == 'url'):
       s.send("PRIVMSG %s :%s\r\n" % (config.CHANNEL,config.SERVICIO_URL))
    else:
-      s.send("PRIVMSG %s :Opción no reconocida.\r\n" % (config.CHANNEL))
+      s.send("PRIVMSG %s :Opcion no reconocida.\r\n" % (config.CHANNEL))
 
 def registra_linea(line):
    if(line.find("PRIVMSG "+config.CHANNEL) != -1):
@@ -87,7 +87,7 @@ def lee_urls(s, line):
    lines = fp.readlines() # lines es una list de urls
    fp.close()
 
-   if(isInt(list[1])):
+   if(isInt(list[1]) and (list[1] >=10)):
       req_urls = int(list[1]) # requested urls
       avail_urls = int(len(lines)) # available urls
       if(req_urls <= avail_urls):
@@ -97,13 +97,17 @@ def lee_urls(s, line):
 	        s.send("PRIVMSG %s :%s\r\n" % (config.CHANNEL,i))
 	        time.sleep(2) # Bug#3.
       else:
-         s.send("PRIVMSG %s :Petición fuera de rango! Sólo hay %s urls!\r\n" % (config.CHANNEL,len(lines)))
+         #s.send("PRIVMSG %s :Peticion fuera de rango! Solo hay %s urls!\r\n" % (config.CHANNEL,len(lines)))
+         s.send("PRIVMSG %s :Peticion fuera de rango! Solo se pueden pedir 10 urls!\r\n" % (config.CHANNEL))
+   elif((list[1] != '') and (list[1] != ' ')):
+      if((list[1].find('http')!=-1) and (list[1].find('ftp')!=-1) and (list[1].find('//')!=-1)):
+         # Busqueda de texto.
+         for i in lines:
+            if(i.find(list[1].strip()) != -1):
+               s.send("PRIVMSG %s :%s\r\n" % (config.CHANNEL,i))
+               time.sleep(2) # Bug#3.
    else:
-      # Busqueda de texto.
-      for i in lines:
-         if(i.find(list[1].strip()) != -1):
-            s.send("PRIVMSG %s :%s\r\n" % (config.CHANNEL,i))
-            time.sleep(2) # Bug#3.
+      s.send("PRIVMSG %s :Peticion erronea!\r\n" % (config.CHANNEL))
 
 def anyade_quote(s, line):
    list = line.split('quote add')
