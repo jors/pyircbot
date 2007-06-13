@@ -11,6 +11,8 @@ Public License.
 Changelog:
 ----------
 
+14 Jun'07 - Improvements funcionalidad basica de stats (top 5).
+
 11 Jun'07 - Adicion filtros y protecciones basicas para evitar que la funcion URL
             pueda ser usada para generar flood.
 

@@ -20,28 +20,37 @@ def crea_stats(s):
    lines = fp.readlines() # lines es una list de urls
    fp.close()
 
-   nicks = []
-   apariciones = []
+   d = {} # Diccionario donde las claves seran los nicks y los valores las lineas de cada uno.
 
    for i in lines:
       split = i.split(':')
       split2 = split[2].split('!')
 
-      if(split2[0] in nicks):
-         pos = nicks.index(split2[0])
-         apariciones[pos] = apariciones[pos] + 1
+      if(split2[0] in d):
+         d[split2[0]] = d.get(split2[0]) + 1
          #print split2[0]+" ya esta en la lista! Tiene "+str(apariciones[pos])+" entradas."
       else:
          #print "Agregando "+split2[0]+" al array general."
-         nicks.append(split2[0])
-         apariciones.append(1)
+         d[split2[0]] = 1
+
+   top5 = [0,0,0,0,0]
+   top5_nicks = ['','','','','']
+   for nick in d:
+      k = 0
+      for j in top5:
+         if(d.get(nick) > j):
+            top5[k] = d.get(nick)
+            top5_nicks[k] = nick
+            break;
+         else:
+            k += 1
 
    j = 0
-   #s.send("PRIVMSG %s :%s\r\n" % (config.CHANNEL,"Loros del canal:"))
-   for i in nicks:
-      s.send("PRIVMSG %s :%s - %s lineas.\r\n" % (config.CHANNEL,i,apariciones[j]))
+   s.send("PRIVMSG %s :Top 5:\r\n" % (config.CHANNEL))
+   for i in top5_nicks:
+      s.send("PRIVMSG %s :%s - %s lineas.\r\n" % (config.CHANNEL,i,top5[j]))
       time.sleep(1)
-      j = j + 1
+      j +=  1
 
 def ayuda(s, line):
    list = line.split('ayuda')
