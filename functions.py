@@ -12,14 +12,7 @@ def isInt(str):
    except ValueError:return 0
    else:return 1
 
-### FUNCIONES ###
-#################
-
-def crea_stats(s):
-   fp = open(config.LOG_FILE, 'r')
-   lines = fp.readlines() # lines es una list de urls
-   fp.close()
-
+def stats_top5(lines):
    d = {} # Diccionario donde las claves seran los nicks y los valores las lineas de cada uno.
 
    for i in lines:
@@ -28,29 +21,91 @@ def crea_stats(s):
 
       if(split2[0] in d):
          d[split2[0]] = d.get(split2[0]) + 1
-         #print split2[0]+" ya esta en la lista! Tiene "+str(apariciones[pos])+" entradas."
+         #print split2[0]+" ya esta en la lista! Tiene "+str(d[split2[0]])+" entradas."
       else:
          #print "Agregando "+split2[0]+" al array general."
          d[split2[0]] = 1
 
+   # Obtenemos los usuarios con mas lineas escritas...
    top5 = [0,0,0,0,0]
    top5_nicks = ['','','','','']
    for nick in d:
-      k = 0
-      for j in top5:
-         if(d.get(nick) > j):
-            top5[k] = d.get(nick)
-            top5_nicks[k] = nick
-            break;
-         else:
-            k += 1
+      if(d.get(nick) > min(top5)):
+         indice = top5.index(min(top5))
+         top5[indice] = d.get(nick)
+         top5_nicks[indice] = nick
 
-   j = 0
-   s.send("PRIVMSG %s :Top 5:\r\n" % (config.CHANNEL))
-   for i in top5_nicks:
-      s.send("PRIVMSG %s :%s - %s lineas.\r\n" % (config.CHANNEL,i,top5[j]))
-      time.sleep(1)
-      j +=  1
+   # ... y ordenamos convenientemente la lista.
+   top = []
+   top_nicks = []
+   while(len(top5) > 0):
+      indice = top5.index(max(top5))
+      top.append(top5.pop(indice))
+      top_nicks.append(top5_nicks.pop(indice))
+
+   return top, top_nicks
+
+def stats_tail5(lines):
+   d = {} # Diccionario donde las claves seran los nicks y los valores las lineas de cada uno.
+
+   for i in lines:
+      split = i.split(':')
+      split2 = split[2].split('!')
+
+      if(split2[0] in d):
+         d[split2[0]] = d.get(split2[0]) + 1
+         #print split2[0]+" ya esta en la lista! Tiene "+str(d[split2[0]])+" entradas."
+      else:
+         #print "Agregando "+split2[0]+" al array general."
+         d[split2[0]] = 1
+
+   # Obtenemos los usuarios con menos lineas escritas...
+   big = 999999999999
+   tail5 = [big,big,big,big,big]
+   tail5_nicks = ['','','','','']
+   for nick in d:
+      if(d.get(nick) < max(tail5)):
+         indice = tail5.index(max(tail5))
+         tail5[indice] = d.get(nick)
+         tail5_nicks[indice] = nick
+
+   # ... y ordenamos convenientemente la lista.
+   tail = []
+   tail_nicks = []
+   while(len(tail5) > 0):
+      indice = tail5.index(min(tail5))
+      tail.append(tail5.pop(indice))
+      tail_nicks.append(tail5_nicks.pop(indice))
+
+   return tail, tail_nicks
+
+### FUNCIONES ###
+#################
+
+def crea_stats(s, line):
+   fp = open(config.LOG_FILE, 'r')
+   lines = fp.readlines() # lines es una list de urls
+   fp.close()
+
+   list = line.split('stats')
+
+   if(list[1].strip() == 'top5'):
+      top,top_nicks = stats_top5(lines) # Funcion top5.
+      j = 0
+      s.send("PRIVMSG %s :Top 5:\r\n" % (config.CHANNEL))
+      for i in top_nicks:
+         s.send("PRIVMSG %s :%s - %s lineas.\r\n" % (config.CHANNEL,i,top[j]))
+         time.sleep(1)
+         j +=  1
+
+   elif(list[1].strip() == 'tail5'):
+      tail,tail_nicks = stats_tail5(lines) # Funcion down5.
+      j = 0
+      s.send("PRIVMSG %s :Tail 5:\r\n" % (config.CHANNEL))
+      for i in tail_nicks:
+         s.send("PRIVMSG %s :%s - %s lineas.\r\n" % (config.CHANNEL,i,tail[j]))
+         time.sleep(1)
+         j +=  1
 
 def ayuda(s, line):
    list = line.split('ayuda')
@@ -66,6 +121,8 @@ def ayuda(s, line):
       s.send("PRIVMSG %s :%s\r\n" % (config.CHANNEL,config.SERVICIO_QUOTE))
    elif(list[1].strip() == 'saluda'):
       s.send("PRIVMSG %s :%s\r\n" % (config.CHANNEL,config.SERVICIO_SALUDA))
+   elif(list[1].strip() == 'stats'):
+      s.send("PRIVMSG %s :%s\r\n" % (config.CHANNEL,config.SERVICIO_STATS))
    elif(list[1].strip() == 'url'):
       s.send("PRIVMSG %s :%s\r\n" % (config.CHANNEL,config.SERVICIO_URL))
    else:

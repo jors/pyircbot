@@ -21,12 +21,12 @@ USER = "jirili localhost libres.irc-hispano.org :jirili"
 CHANNEL = "#tty"
 
 # SERVICIOS ofrecidos por el bot.
-SERVICIOS = "acerca de, ayuda [comando], quit, quote [add], saluda, stats, url [numero]|[palabra]"
+SERVICIOS = "acerca de, ayuda [comando], quit, quote [add], saluda, stats [top5|tail5], url [numero]|[palabra]"
 SERVICIO_ACERCADE = "Muestra una breve descripcion del bot."
 SERVICIO_QUIT = "Desconecta el bot; requiere ciertos privilegios."
 SERVICIO_QUOTE = "Muestra un quote aleatorio. Con el parametro add seguido de una frase, añade un quote."
 SERVICIO_SALUDA = "Muestra un saludo. Saluda a un destino concreto con un parametro final."
-SERVICIO_SALUDA = "Muestra una pequeña estadistica del canal."
+SERVICIO_STATS = "Muestra una pequeña estadistica del canal. Actualmente solo atiende a los top5 y tail5 (los 5 nicks con mas y menos lineas escritas, respectivamente)."
 SERVICIO_URL = "Muestra urls. Necesita un parametro. Si este es un número N, muestra las N ultimas urls. Si es una cadena, hace una busqueda de las urls que la contengan para mostrarlas."
 
 # PASSWORD para desconectar el bot.

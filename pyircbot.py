@@ -11,6 +11,9 @@ Public License.
 Changelog:
 ----------
 
+16 Jun'07 - Improvements funcionalidad basica de stats (top 5) para mostrarlo
+            en orden, y adición funcionalidad (tail5).
+
 14 Jun'07 - Improvements funcionalidad basica de stats (top 5).
 
 11 Jun'07 - Adicion filtros y protecciones basicas para evitar que la funcion URL
@@ -150,4 +153,4 @@ while 1:
       # stats #
       if(config.M_STATS):
          if((line.find(config.NICK+ ': stats') != -1) or (line.find(config.NICK+ ' stats') != -1)):
-            functions.crea_stats(s)
+            functions.crea_stats(s, line)
