@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # coding: iso-8859-15
 
-import socket,os,string,sys,linecache,random,time
+import socket, os, string, sys, linecache, random, time
 import config
 
 ### METAFUNCIONES ###

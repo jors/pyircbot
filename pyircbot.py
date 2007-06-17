@@ -16,23 +16,27 @@ Changelog:
 
 14 Jun'07 - Improvements funcionalidad basica de stats (top 5).
 
-11 Jun'07 - Adicion filtros y protecciones basicas para evitar que la funcion URL
-            pueda ser usada para generar flood.
+11 Jun'07 - Adicion filtros y protecciones basicas para evitar que la funcion
+            URL pueda ser usada para generar flood.
 
 09 Jun'07 - Adicion funcionalidad basica de stats.
 
 07 Jun'07 - Modificacion funcionalidad de mostrar ayuda: funcion extendida.
 
-06 Jun'07 - Modificacion funcionalidad de mostrar urls. Sin argumentos no se muestran todas,
-            y es posible pasarle un string en lugar de un nº para hacer busquedas de url.
+06 Jun'07 - Modificacion funcionalidad de mostrar urls. Sin argumentos no se
+            muestran todas, y es posible pasarle un string en lugar de un nº
+            para hacer busquedas de url.
 
 05 Jun'07 - Adicion funcionalidad de logging para aplicar stats (stats TBD yet).
 
-04 Jun'07 - Division del proyecto en 3 ficheros: main, funciones y configuraciones.
-          - Adicion de otro modo de llamada al bot; puede ser bot: accion y bot accion.
+04 Jun'07 - Division del proyecto en 3 ficheros: main, funciones y
+            configuraciones.
+          - Adicion de otro modo de llamada al bot; puede ser bot: accion y bot
+            accion.
           - Sustitucion de hardcoded strings por otros dinamicos.
 
-21 Mar'07 - Bug#3. sleep() para controlar flood urls. No, no recuerdo los 2 anteriores.
+21 Mar'07 - Bug#3. sleep() para controlar flood urls. No, no recuerdo los 2
+            anteriores.
 
 27 Feb'07 - Adicion funcionalidad grabar quotes.
           - Adicion funcionalidad mostrar X ultimas urls.
@@ -41,8 +45,8 @@ Mediados de Feb'07 - Script principal.
 
 """
 
-import socket,os,string,sys,linecache,random,time
-import functions,config
+import socket, string
+import functions, config
 
 ### MAIN ###
 ############
@@ -50,7 +54,7 @@ import functions,config
 # Create socket & connect to IRC server.
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 if(config.DEBUG):
-	print 'Connecting to server...'
+   print 'Connecting to server...'
 s.connect((config.SERVER_NAME, int(config.SERVER_PORT)))
 
 # Mandamos datos iniciales...
@@ -79,15 +83,15 @@ while 1:
    to the readbuffer. You need a readbuffer because you might 
    not always be able to read complete IRC commands from the server.
    """
-   readbuffer=readbuffer+s.recv(1024)
+   readbuffer = readbuffer + s.recv(1024)
    # En temp tenemos el mogollon sin el \n.
-   temp=string.split(readbuffer, "\n")
+   temp = string.split(readbuffer, "\n")
    """
    The read buffer is then split into a list of strings, using \n
    as a separator. The last line in this list is possibly a 
    half-received line, so it is stored back into the read buffer.
    """
-   readbuffer=temp.pop()
+   readbuffer = temp.pop()
 
    for line in temp:
       """
@@ -95,10 +99,10 @@ while 1:
       in a normal manner, there's one thing left to do. You need
       to remove the trailing \r character from the end of the lines.
       """
-      line=string.rstrip(line)
-      line_list=string.split(line)
+      line = string.rstrip(line)
+      line_list = string.split(line)
       
-      if(line_list[0]=='PING'):
+      if(line_list[0] == 'PING'):
          if(config.DEBUG):
             print 'PING received, sending PONG...'
             s.send("PONG %s\r\n" % line_list[1])
@@ -113,15 +117,15 @@ while 1:
          if((line.find(config.NICK+': saluda') != -1) or (line.find(config.NICK+' saluda') != -1)):
             elems = len(line_list)
             if(line_list[elems-1] == 'saluda'):
-	           s.send("PRIVMSG %s :Hola!\r\n" % config.CHANNEL)
+               s.send("PRIVMSG %s :Hola!\r\n" % config.CHANNEL)
             else:
-               s.send("PRIVMSG %s :Hola %s\r\n" % (config.CHANNEL,line_list[elems-1]))
+               s.send("PRIVMSG %s :Hola %s\r\n" % (config.CHANNEL, line_list[elems-1]))
 
       # quote: leer/añadir #
       if(config.M_QUOTE):
          if((line.find(config.NICK+': quote') != -1) or (line.find(config.NICK+' quote') != -1)):
             if((line.find(config.NICK+': quote add') != -1) or (line.find(config.NICK+': quote add') != -1)):
-	           functions.anyade_quote(s, line)
+               functions.anyade_quote(s, line)
             else:
                functions.lee_quote(s)
 
@@ -134,7 +138,7 @@ while 1:
       if(config.M_ACERCADE):
          if((line.find(config.NICK+': acerca de') != -1) or (line.find(config.NICK+' acerca de') != -1)):
             MSG = 'pyircbot2 - Bot pythoniano de IRC, Feb\'07, by qat.'
-            s.send("PRIVMSG %s :%s\r\n" % (config.CHANNEL,MSG))
+            s.send("PRIVMSG %s :%s\r\n" % (config.CHANNEL, MSG))
 
       # quit #
       if(config.M_QUIT):
