@@ -11,6 +11,8 @@ Public License.
 Changelog:
 ----------
 
+17 Jun'07 - Adicion subfuncionalidad de stats: insults.
+
 16 Jun'07 - Improvements funcionalidad basica de stats (top 5) para mostrarlo
             en orden, y adición funcionalidad (tail5).
 

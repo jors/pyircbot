@@ -13,7 +13,7 @@ def isInt(str):
    else:return 1
 
 def stats_top5(lines):
-   d = {} # Diccionario donde las claves seran los nicks y los valores las lineas de cada uno.
+   d = {} # Diccionario donde las claves seran los nicks y los valores de las lineas de cada uno.
 
    for i in lines:
       split = i.split(':')
@@ -46,7 +46,7 @@ def stats_top5(lines):
    return top, top_nicks
 
 def stats_tail5(lines):
-   d = {} # Diccionario donde las claves seran los nicks y los valores las lineas de cada uno.
+   d = {} # Diccionario donde las claves seran los nicks y los valores de las lineas de cada uno.
 
    for i in lines:
       split = i.split(':')
@@ -79,6 +79,50 @@ def stats_tail5(lines):
 
    return tail, tail_nicks
 
+def stats_tacos(lines):
+   d = {} # Diccionario donde las claves seran los nicks y el nº de tacos de cada uno.
+   tacos = ['asno','bastard','bastardo','bitch','burro','borracho','borrico','cabron','caca','cabronazo',
+            'cabroncete','caga','cago','cateto','capon','cerdo','cerda','cipote','cimbrel','cirulo','chocho',
+            'coñ','desgraciad','kbron','kbronazo','energumeno','fitipaldi','gay','gili','gilipolla','guarro',
+            'guarra','hijoputa','hijo de puta','imbecil','impotente','inutil','jamelgo','joputa','joda',
+            'jodeputa','joder','joer','juer','julay','julandron','leche','mamon','marica','maricon','memo',
+            'merluzo','mierda','moco','mojon','nabo','ostia','paleto','pedo','pene','perra','polla','puta',
+            'puto','pendon','pendejo','polla','pilila','rabo','ramera','rastrero','ruin','satan','serdo',
+            'semen','senil','sifilitico','son of a bitch','tarado','tonto','toto','tralla','tranca','tumae',
+            'tu mae','tuputamae','tu puta mae','tu puta madre','verga','vomita','warro','warra','whore',
+            'xoxo','yoya','zimbrel','zoquete','zorra','zurullo']
+
+   for i in lines:
+      split = i.split(':')
+      split2 = split[2].split('!')
+
+      for taco in tacos:
+         if(split[3].find(taco) != -1):
+            #print 'Frase con taco: ' + split[3]
+            if(split2[0] in d):
+               d[split2[0]] = d.get(split2[0]) + 1
+            else:
+               d[split2[0]] = 1
+
+   # Obtenemos los usuarios con mas lineas escritas...
+   top5_tacos = [0,0,0,0,0]
+   top5_nicks_tacos = ['','','','','']
+   for nick in d:
+      if(d.get(nick) > min(top5_tacos)):
+         indice = top5_tacos.index(min(top5_tacos))
+         top5_tacos[indice] = d.get(nick)
+         top5_nicks_tacos[indice] = nick
+
+   # ... y ordenamos convenientemente la lista.
+   top_tacos = []
+   top_nicks_tacos = []
+   while(len(top5_tacos) > 0):
+      indice = top5_tacos.index(max(top5_tacos))
+      top_tacos.append(top5_tacos.pop(indice))
+      top_nicks_tacos.append(top5_nicks_tacos.pop(indice))
+
+   return top_tacos, top_nicks_tacos
+
 ### FUNCIONES ###
 #################
 
@@ -104,6 +148,15 @@ def crea_stats(s, line):
       s.send("PRIVMSG %s :Tail 5:\r\n" % (config.CHANNEL))
       for i in tail_nicks:
          s.send("PRIVMSG %s :%s - %s lineas.\r\n" % (config.CHANNEL,i,tail[j]))
+         time.sleep(1)
+         j +=  1
+
+   elif(list[1].strip() == 'insults'):
+      tacos,tacos_nicks = stats_tacos(lines)
+      j = 0
+      s.send("PRIVMSG %s :Top malhablados:\r\n" % (config.CHANNEL))
+      for i in tacos_nicks:
+         s.send("PRIVMSG %s :%s - %s tacos.\r\n" % (config.CHANNEL,i,tacos[j]))
          time.sleep(1)
          j +=  1
 
