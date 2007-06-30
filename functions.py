@@ -86,11 +86,11 @@ def stats_tacos(lines):
             'coñ','desgraciad','kbron','kbronazo','energumeno','fitipaldi','gay','gili','gilipolla','guarro',
             'guarra','hijoputa','hijo de puta','imbecil','impotente','inutil','jamelgo','joputa','joda',
             'jodeputa','joder','joer','juer','julay','julandron','leche','mamon','marica','maricon','memo',
-            'merluzo','mierda','moco','mojon','nabo','ostia','paleto','pedo','pene','perra','polla','puta',
-            'puto','pendon','pendejo','polla','pilila','rabo','ramera','rastrero','ruin','satan','serdo',
-            'semen','senil','sifilitico','son of a bitch','tarado','tonto','toto','tralla','tranca','tumae',
-            'tu mae','tuputamae','tu puta mae','tu puta madre','verga','vomita','warro','warra','whore',
-            'xoxo','yoya','zimbrel','zoquete','zorra','zurullo']
+            'merluzo','mierda','miserable','moco','mojon','nabo','ostia','paleto','pedo','pene','perra',
+            'polla','puta','puto','pendon','pendejo','polla','pilila','rabo','racano','ramera','rata',
+            'rastrero','ruin','satan','serdo','semen','senil','sifilitico','son of a bitch','tarado','tonto',
+            'toto','tralla','tranca','tumae','tu mae','tuputamae','tu puta mae','tu puta madre','verga',
+            'vomita','warro','warra','whore','xoxo','yoya','zimbrel','zoquete','zorra','zurullo']
 
    for i in lines:
       split = i.split(':')
@@ -206,25 +206,27 @@ def lee_urls(s, line):
    lines = fp.readlines() # lines es una list de urls
    fp.close()
 
-   if(isInt(list[1]) and (list[1] >=10)):
-      req_urls = int(list[1]) # requested urls
-      avail_urls = int(len(lines)) # available urls
-      if(req_urls <= avail_urls):
-         url_start = avail_urls - req_urls
-         lines = lines[url_start:avail_urls] # seleccionamos un rango de elementos, elem inicial:final
-         for i in lines:
-	        s.send("PRIVMSG %s :%s\r\n" % (config.CHANNEL,i))
-	        time.sleep(2) # Bug#3.
+   if(isInt(list[1])):
+      if(list[1] >=10):
+         req_urls = int(list[1]) # requested urls
+         avail_urls = int(len(lines)) # available urls
+         if(req_urls <= avail_urls):
+            url_start = avail_urls - req_urls
+            lines = lines[url_start:avail_urls] # seleccionamos un rango de elementos, elem inicial:final
+            for i in lines:
+	           s.send("PRIVMSG %s :%s\r\n" % (config.CHANNEL,i))
+	           time.sleep(2) # Bug#3.
       else:
          #s.send("PRIVMSG %s :Peticion fuera de rango! Solo hay %s urls!\r\n" % (config.CHANNEL,len(lines)))
          s.send("PRIVMSG %s :Peticion fuera de rango! Solo se pueden pedir 10 urls!\r\n" % (config.CHANNEL))
    elif((list[1] != '') and (list[1] != ' ')):
-      if((list[1].find('http')!=-1) and (list[1].find('ftp')!=-1) and (list[1].find('//')!=-1)):
-         # Busqueda de texto.
-         for i in lines:
-            if(i.find(list[1].strip()) != -1):
-               s.send("PRIVMSG %s :%s\r\n" % (config.CHANNEL,i))
-               time.sleep(2) # Bug#3.
+      # Busqueda de texto.
+      for i in lines:
+         print i
+         if(i.find(list[1].strip()) != -1):
+            print i
+            s.send("PRIVMSG %s :%s\r\n" % (config.CHANNEL,i))
+            time.sleep(2) # Bug#3.
    else:
       s.send("PRIVMSG %s :Peticion erronea!\r\n" % (config.CHANNEL))
 

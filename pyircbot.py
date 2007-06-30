@@ -11,6 +11,9 @@ Public License.
 Changelog:
 ----------
 
+30 Jun'07 - Bug#4. Correccion de la funcion de busqueda de texto en el
+            listado de URL's almacenadas.
+
 17 Jun'07 - Adicion subfuncionalidad de stats: insults.
 
 16 Jun'07 - Improvements funcionalidad basica de stats (top 5) para mostrarlo
