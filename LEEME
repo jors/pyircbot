@@ -9,6 +9,7 @@
 2. Como ejecutarlo.
 3. Como trastearlo.
 4. Donaciones o pago en especies.
+5. Contacto.
 
 
 --------
@@ -39,13 +40,17 @@ cambio):
 3. Como trastearlo
 ------------------
 
-Para ello basta con que te bajes una copia de trabajo en un directorio local (de tu
+Para ello basta con que te bajes una copia de trabajo a un directorio local (de tu
 disco duro) desde el repositorio subversion de SourceForge. Puedes hacer esto
 ejecutando lo siguiente:
 
   mkdir pyircbot
   cd pyircbot
   svn co https://pyircbot.svn.sourceforge.net/svnroot/pyircbot pyircbot
+
+Hecho esto, en el directorio pyircbot que acabamos de crear tendremos los archivos
+disponibles. Si haces cambios interesantes, coméntamelos (ver seccion 5) y consideraré
+el subirlos a la rama principal o hacer una rama separada (aka 'fork').
 
 
 --------------------------------
@@ -54,4 +59,10 @@ ejecutando lo siguiente:
 
 Se aceptan donaciones -casi- de cualquier tipo. En especial, si perteneces al 
 sexo femenino y consideras que estas de buen ver 0:D
+
+-----------
+5. Contacto
+-----------
+
+qat en ya punto com
 

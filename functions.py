@@ -81,22 +81,12 @@ def stats_tail5(lines):
 
 def stats_tacos(lines):
    d = {} # Diccionario donde las claves seran los nicks y el nº de tacos de cada uno.
-   tacos = ['asno','bastard','bastardo','bitch','burro','borracho','borrico','cabron','caca','cabronazo',
-            'cabroncete','caga','cago','cateto','capon','cerdo','cerda','cipote','cimbrel','cirulo','chocho',
-            'coñ','desgraciad','kbron','kbronazo','energumeno','fitipaldi','gay','gili','gilipolla','guarro',
-            'guarra','hijoputa','hijo de puta','imbecil','impotente','inutil','jamelgo','joputa','joda',
-            'jodeputa','joder','joer','juer','julay','julandron','leche','mamon','marica','maricon','memo',
-            'merluzo','mierda','miserable','moco','mojon','nabo','ostia','paleto','pedo','pene','perra',
-            'polla','puta','puto','pendon','pendejo','polla','pilila','rabo','racano','ramera','rata',
-            'rastrero','ruin','satan','serdo','semen','senil','sifilitico','son of a bitch','tarado','tonto',
-            'toto','tralla','tranca','tumae','tu mae','tuputamae','tu puta mae','tu puta madre','verga',
-            'vomita','warro','warra','whore','xoxo','yoya','zimbrel','zoquete','zorra','zurullo']
 
    for i in lines:
       split = i.split(':')
       split2 = split[2].split('!')
 
-      for taco in tacos:
+      for taco in config.tacos:
          if(split[3].find(taco) != -1):
             #print 'Frase con taco: ' + split[3]
             if(split2[0] in d):
@@ -207,7 +197,7 @@ def lee_urls(s, line):
    fp.close()
 
    if(isInt(list[1])):
-      if(list[1] >=10):
+      if(int(list[1]) < 11):
          req_urls = int(list[1]) # requested urls
          avail_urls = int(len(lines)) # available urls
          if(req_urls <= avail_urls):
@@ -218,7 +208,7 @@ def lee_urls(s, line):
 	           time.sleep(2) # Bug#3.
       else:
          #s.send("PRIVMSG %s :Peticion fuera de rango! Solo hay %s urls!\r\n" % (config.CHANNEL,len(lines)))
-         s.send("PRIVMSG %s :Peticion fuera de rango! Solo se pueden pedir 10 urls!\r\n" % (config.CHANNEL))
+         s.send("PRIVMSG %s :Peticion fuera de rango! Solo se pueden pedir 10 urls (cortesia del puto dedo)!\r\n" % (config.CHANNEL))
    elif((list[1] != '') and (list[1] != ' ')):
       # Busqueda de texto.
       for i in lines:

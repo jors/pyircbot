@@ -48,3 +48,15 @@ M_QUIT = 1
 M_URLCATCHER = 1
 M_LOGGING = 1
 M_STATS = 1
+
+# Variable de insultos; ampliar al gusto.
+tacos = ['asno','bastard','bastardo','bitch','burro','borracho','borrico','cabron','caca','cabronazo',
+         'cabroncete','caga','cago','cateto','capon','cerdo','cerda','cipote','cimbrel','cirulo','chocho',
+         'coñ','desgraciad','kbron','kbronazo','energumeno','fitipaldi','gay','gili','gilipolla','guarro',
+         'guarra','hijoputa','hijo de puta','imbecil','impotente','inutil','jamelgo','joputa','joda',
+         'jodeputa','joder','joer','juer','julay','julandron','leche','mamon','marica','maricon','memo',
+         'merluzo','mierda','miserable','moco','mojon','nabo','ostia','paleto','pedo','pene','perra',
+         'polla','puta','puto','pendon','pendejo','polla','pilila','rabo','racano','ramera','rata',
+         'rastrero','ruin','satan','serdo','semen','senil','sifilitico','son of a bitch','tarado','tonto',
+         'toto','tralla','tranca','tumae','tu mae','tuputamae','tu puta mae','tu puta madre','verga',
+         'vomita','warro','warra','whore','xoxo','yoya','zimbrel','zoquete','zorra','zurullo']

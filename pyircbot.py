@@ -11,6 +11,10 @@ Public License.
 Changelog:
 ----------
 
+28 Nov'07 - Bug#5. Un fallo en la funcion de mostrado de url's provocaba
+				que no hubiera limitacion en el numero de url's que se podían
+				pedir al bot.
+
 30 Jun'07 - Bug#4. Correccion de la funcion de busqueda de texto en el
             listado de URL's almacenadas.
 
