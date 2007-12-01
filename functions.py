@@ -212,9 +212,11 @@ def lee_urls(s, line):
    elif((list[1] != '') and (list[1] != ' ')):
       # Busqueda de texto.
       for i in lines:
-         print i
-         if(i.find(list[1].strip()) != -1):
+         if config.DEBUG == 1:
             print i
+         if(i.find(list[1].strip()) != -1):
+            if config.DEBUG == 1:
+               print i
             s.send("PRIVMSG %s :%s\r\n" % (config.CHANNEL,i))
             time.sleep(2) # Bug#3.
    else:

@@ -5,7 +5,7 @@
 #################
 
 # DGBUG info; booleano para activarlo/desactivarlo.
-DEBUG = 1
+DEBUG = 0
 
 # NICKNAME del bot.
 NICK = "jirili"

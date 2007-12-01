@@ -11,6 +11,11 @@ Public License.
 Changelog:
 ----------
 
+01 Dic'07 - Bug#6. Un descuido en la funcion de mostrar URL's que son
+			   buscadas por cadena. NOTA: Si se tiene el debug activado,
+				asegurarse que la consola donde se ejecuta el bot esta
+				abierta o petara. Debug por defecto a 0.
+
 28 Nov'07 - Bug#5. Un fallo en la funcion de mostrado de url's provocaba
 				que no hubiera limitacion en el numero de url's que se podían
 				pedir al bot.
